@@ -20,8 +20,8 @@ In the field of OCR and Document Digitization, raw images are often tilted or ha
 ## 🚀 How to Run
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/YOUR_USERNAME/document-scanner.git](https://github.com/YOUR_USERNAME/document-scanner.git)
-    cd document-scanner
+    git clone https://github.com/EvansDesikan/Document_Scanner.git
+    cd Document_Scanner
     ```
 2.  **Install dependencies:**
     ```bash
