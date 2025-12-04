@@ -15,7 +15,7 @@ In the field of OCR and Document Digitization, raw images are often tilted or ha
 ## 📸 Demo
 | Original Input | Edge Detection | Scanned Output |
 | :---: | :---: | :---: |
-| <img src="paper2.jpg" width="200"> | *Add screenshot of edges* | <img src="scanned_document.jpg" width="200"> |
+| <img src="paper2.jpg" width="200"> | <img src="edges.jpg" width="200"> | <img src="scanned_document.jpg" width="200"> |
 
 ## 🚀 How to Run
 1.  **Clone the repository:**
