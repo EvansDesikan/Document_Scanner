@@ -1,39 +1,32 @@
-# 📄 Document Scanner (Computer Vision)
+# Document scanner: classical OpenCV pipeline
 
-A bsaic Python-based document scanner which detects paper in images, corrects the perspective, and applies adaptive thresholding to create a clean and scanned output. This tries to mimic the functionality of apps like CamScanner or Adobe Scan.
+Turns a photo of a tilted page into a flat, clean, scanner-style image, like CamScanner, using only classical computer vision (no deep learning).
 
-## 🎯 Project Overview
-In the field of OCR and Document Digitization, raw images are often tilted or have uneven lighting. This tool tries to solve those problems using classical Computer Vision techniques:
-* **Edge Detection:** Uses Canny Edge Detection to find document boundaries.
-* **Geometry:** Calculates a 4-point perspective transform to "flatten" the document from a tilted angle.
-* **Image Processing:** Applies adaptive Gaussian thresholding to remove shadows and binarize the image.
-
-## 🛠️ Tech Stack
-* **Language:** Python 3.x
-* **Libraries:** OpenCV (`cv2`), NumPy
-
-## 📸 Demo
-| Original Input | Edge Detection | Scanned Output |
+| Photo | Detected edges | Scanned output |
 | :---: | :---: | :---: |
-| <img src="paper2.jpg" width="200"> | <img src="Edges.jpg" width="200"> | <img src="scanned_document.jpg" width="200"> |
+| <img src="paper2.jpg" width="220"> | <img src="Edges.jpg" width="220"> | <img src="scanned_document.jpg" width="220"> |
 
-## 🚀 How to Run
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/EvansDesikan/Document_Scanner.git
-    cd Document_Scanner
-    ```
-2.  **Install dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-3.  **Run the scanner:**
-    ```bash
-    python scanner.py
-    ```
-    *(Ensure you have an image named `paper2.jpg` in the folder).*
+## Pipeline
 
-## 🧠 Key Algorithms Used
-1.  **Canny Edge Detection:** To identify sharp changes in intensity.
-2.  **Contour Approximation (`cv2.approxPolyDP`):** To simplify the border into a 4-point polygon.
-3.  **Perspective Warp:** Uses a transformation matrix to map the 4 ordered corners to a flat rectangle.
+1. **Pre-processing:** greyscale and Gaussian blur to suppress texture.
+2. **Edge detection:** Canny.
+3. **Page finding:** largest contour, simplified to four corners with `cv2.approxPolyDP`.
+4. **Perspective correction:** the four corners are ordered and mapped to a rectangle with a homography (`cv2.getPerspectiveTransform`, `cv2.warpPerspective`).
+5. **Clean-up:** adaptive Gaussian thresholding removes shadows and uneven lighting.
+
+## Run it
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+python scanner.py          # reads paper2.jpg, writes scanned_document.jpg
+```
+
+## Limitations and next steps
+
+- Fails when the page edge has low contrast against the background, or when part of the page is outside the photo.
+- Next: fall back to Hough lines when no four-corner contour is found; add OCR (Tesseract) on the flattened page.
+
+## Tech
+
+Python · OpenCV · NumPy
